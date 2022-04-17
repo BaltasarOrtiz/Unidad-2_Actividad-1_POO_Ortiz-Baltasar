@@ -28,13 +28,30 @@ class Email:
         self.dominio=tip[0]
         self.tipoDeDominio=tip[1]
         
-def modifica_contra(actual,oldpass):
-        if actual == oldpass:
+def modifica_contra(actual,vieja):
+        if actual == vieja:
             actual=input("Ingrese nueva contraseña:")
             print("Su contraseña se modifico a: " + actual)
             return actual
         else:
             print("Contraseña incorrecta")
+
+def recorre_Archiv(direcc):
+    lista=[]
+    for i in range(len(direcc)):
+        ad=Email("","","","")
+        ad.crearCuenta(direcc[i])
+        lista.append(ad) 
+    busca = input("Ingrese ID a buscar:")
+    b=0
+    for ad in lista: 
+        if  ad.idCuenta == busca:
+            b=1
+    if b==1:
+        print ("El ID ingresado se encuentra repetido")
+    else: 
+        print ("No se encuentra el ID ingresado")
+
 
 
 if __name__ == "__main__":
@@ -55,5 +72,12 @@ if __name__ == "__main__":
     print(correo.crearCuenta())
     
     ##APARTADO 4
-    archivo = open("direcciones.csv")
-    
+    corr = Email()
+    corr.crearCuenta(input("Ingrese su correo:"))
+    print(corr.retornarEmail())
+    archi = open("direcciones.csv")
+    direcciones = archi.read().split(",")
+    with open("direcciones.csv","r") as archivo:
+        direcciones = archivo.read().split(",")
+        recorreArchiv(direcciones) 
+        archivo.close()
